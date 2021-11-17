@@ -21,7 +21,7 @@ function User () {
             console.log(res)
             setData(res.data)
         })
-    });
+    })
 
      const showTodo=()=>{
         history.push('/Todos.js')

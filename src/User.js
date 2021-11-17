@@ -5,29 +5,34 @@ import Container from 'react-bootstrap/Container';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {getuser} from './acttions/index.js';
 
 
-function User () {
+import users from './reducers/getUsers.js';
+export default function User (props) {
+       
+        const User = useSelector((state) => state.getUsers.user);
+        const dispatch = useDispatch();
+      
 
-    const [User,setData]=useState([])
-     let history = useHistory();
 
+  useEffect(() => {
+      LoadUser();
+         
+    },[])
 
-
-
-    useEffect(() => {
-        axios.get('http://localhost:3008/users')
-        .then(res => {
-            console.log(res)
-            setData(res.data)
-        })
-    })
-
-     const showTodo=()=>{
-        history.push('/Todos.js')
-    }
+    const LoadUser= async()=> {
+    const result = await axios.get('http://localhost:3008/users')
+    console.log(result.data)   
+    const  getUserAction = getuser(result.data)
     
-
+    dispatch(getuser(getUserAction));
+    
+    
+    }
+    console.log(User)
+       
         return(
 
             <>
@@ -59,7 +64,7 @@ function User () {
                    
                </tr>
            </tbody>
-            )}
+            )} 
 
        </Table>
        </Container>
@@ -67,4 +72,3 @@ function User () {
         )
 }
 
-export default User;

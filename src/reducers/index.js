@@ -3,5 +3,4 @@ import getUsers from './getUsers';
 
 export default combineReducers({
     getUsers,
-  
 });

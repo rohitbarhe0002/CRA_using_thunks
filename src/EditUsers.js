@@ -4,38 +4,34 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import getUsers from './acttions/index';
+import { edituser } from './acttions';
+
 
 const EditUsers = () => {
 
+    const dispatch = useDispatch ();
     let history=useHistory();
     const{id}=useParams();
 
-    
-    const [user,setUser] = useState({
+    const EditUser = useSelector((state) => state.EditUsers.edituser);
 
-       id:"",
-        name: "",
-        email: "",
-        phone: ""
-    });
 
-    const { name, email, phone } = user;
-    console.log(id);
+    const { name, email, phone } = EditUser;
+
     const InputChange = (event) => {
-        setUser({...user, [event.target.name]: event.target.value });
+        dispatch(edituser({...EditUser,[event.target.name]:event.target.value}));
     };
 
     const onSubmit = async(event) => {
         event.preventDefault();
-        await axios.put(`http://localhost:3008/users/${id}`, user);
+        await axios.put(`http://localhost:3008/users/${id}`, EditUser);
         history.push('/User');
 
     };
 
     useEffect(() => {
         axios.get(`http://localhost:3008/users/${id}`).then((response)=>{
-        console.log(response);
+      
         setUser(response.data)
     });
     }, [])

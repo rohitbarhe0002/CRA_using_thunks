@@ -2,30 +2,34 @@ import React from 'react';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect} from 'react';
+import { useParams} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { getcomment } from './acttions';
+import { useSelector,useDispatch } from 'react-redux';
 
-export default function Comment() {
-    const { id } = useParams();
-    console.log(id);
-    const [Comment, setTodos] = React.useState([])
+export default function Comments (props) {
 
+    const {id}=useParams();
 
-    useEffect(() => {
+    const Comment = useSelector((state) => state.getComment.comment);
+    //console.log(comments);
+   
 
+     const dispatch=useDispatch();
 
-        LoadData();
+     useEffect(() => {
+      LoadComment();     
+     },[])
 
-    }, [])
+  const LoadComment= async()=> {
+    const result = await axios.get(`http://localhost:3008/users/${id}/comments`)
+    dispatch(getcomment(result.data))
+    
 
-    const LoadData = async() => {
-        const res = await axios.get(` http://localhost:3008/users/${id}/comments`)
-
-        console.log(res.data)
-        setTodos(res.data)
     }
 
-
+   
 
     return ( 
     <>

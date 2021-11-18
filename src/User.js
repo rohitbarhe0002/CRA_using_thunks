@@ -8,37 +8,27 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {getuser} from './acttions/index.js';
 
-
-import users from './reducers/getUsers.js';
 export default function User (props) {
        
-        const User = useSelector((state) => state.getUsers.user);
-        const dispatch = useDispatch();
+const user = useSelector((state) => state.getUsers.user);
+console.log(user);
+
+const dispatch = useDispatch();
       
-
-
   useEffect(() => {
-      LoadUser();
-         
+      LoadUser();     
     },[])
 
     const LoadUser= async()=> {
     const result = await axios.get('http://localhost:3008/users')
-    console.log(result.data)   
     const  getUserAction = getuser(result.data)
-    
-    dispatch(getuser(getUserAction));
-    
-    
-    }
-    console.log(User)
-       
-        return(
+    dispatch(getUserAction);
 
+    }
+ return(
             <>
          <Container className="fluid">
-              
-              
+               
               <h1>User Data</h1>  
 
        <Table striped bordered hover varient="dark">
@@ -51,16 +41,16 @@ export default function User (props) {
                    <th>Buttons</th>
                </tr>
            </thead>
-           {User.map(User => 
+           {user.map(user => 
            <tbody>
                <tr>
-                   <td>{User.id}</td>
-                   <td>{User.name}</td>
-                   <td>{User.email}</td>
-                   <td>{User.phone}</td>
-                   <Link  varient="danger" to={`/Todos/${User.id}`}>Todos</Link>
-                   <Link  varient="danger" to={`/Post/${User.id}`}>Post</Link>
-                   <Link  varient="danger" to={`/EditUsers/${User.id}`}>Edit</Link>
+                   <td>{user.id}</td>
+                   <td>{user.name}</td>
+                   <td>{user.email}</td>
+                   <td>{user.phone}</td>
+                   <Link  varient="danger" to={`/Todos/${user.id}`}>Todos</Link>
+                   <Link  varient="danger" to={`/Post/${user.id}`}>Post</Link>
+                   <Link  varient="danger" to={`/EditUsers/${user.id}`}>Edit</Link>
                    
                </tr>
            </tbody>

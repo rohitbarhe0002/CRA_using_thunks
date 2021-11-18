@@ -5,27 +5,30 @@ import Container from 'react-bootstrap/Container';
 import {useEffect} from 'react';
 import { useParams} from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { getpost } from './acttions';
+import { useSelector,useDispatch } from 'react-redux';
 
-export default function Post () {
-   const {id}=useParams();
-   console.log(id);
-    const [Post,setPost]=React.useState([])
-     
-    useEffect(() => {
-            
+export default function Posts (props) {
 
-        DataLoad();
+    const {id}=useParams();
 
-    },[])
 
-    const DataLoad=async()=>{
-        const res =await axios.get(`http://localhost:3008/users/${id}/Posts`)
-           
-                   console.log(res.data)
-                   setPost(res.data)
-}
+    const post = useSelector((state) => state.getPost.post);
+    console.log(post);
    
-  
+
+     const dispatch=useDispatch();
+
+     useEffect(() => {
+      LoadPost();     
+     },[])
+
+  const LoadPost= async()=> {
+    const result = await axios.get(`http://localhost:3008/users/${id}/posts`)
+    const getPostAction  = getpost(result.data)
+    dispatch(getPostAction);
+
+    }
 
 return(
     <>
@@ -40,14 +43,14 @@ return(
         
     </tr>
 </thead>
-      {Post.map(post => 
+      {post.map(post => 
            <tbody>
                <tr>
                   
                    <li>{post.id}</li>
                    <td>{post.title}</td>
                    <td>{post.body}</td>
-                   <Link  varient="danger" to={`/Comment/${Post.id}`}>Comments</Link>
+                   <Link  varient="danger" to={`/Comment/${post.id}`}>Comments</Link>
                   
                </tr>
            </tbody>

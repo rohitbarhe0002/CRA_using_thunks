@@ -2,27 +2,28 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { adduser1 } from './acttions';
+import { useSelector,useDispatch } from 'react-redux';
 
 
 const AddUser1 = () =>{
-    let history=useHistory();
-    const [user,setUser] = useState(
-        {
-            useid:"",
-            name:"",
-            email:"",
-            phone:""
-        });
 
-        const{useid,name,email,phone}=user;
+
+        const dispatch = useDispatch ();
+        let history=useHistory();
+   
+        const Adduser = useSelector((state) => state.adduser.adduser1);
+
+        const{useid,name,email,phone}=Adduser;
 
         const InputChange = (event) =>{
-            setUser({...user,[event.target.name]:event.target.value});
-        };
-
-        const onSubmit = async(event)=>{
+            dispatch(adduser1({...Adduser,[event.target.name]:event.target.value}));
+    };
+ 
+    
+          const onSubmit = async(event)=>{
             event.preventDefault();
-            await axios.post('http://localhost:3008/users',user);
+            await axios.post('http://localhost:3008/users',Adduser);
             history.push('./User');
         };
 

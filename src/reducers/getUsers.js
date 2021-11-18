@@ -1,15 +1,17 @@
 import { GET_USER } from "../acttions/actiontype";
+
   
   const initialState = {
-   getuser:[],
+   user:[],
   }
   
   export default function users (state = initialState, action) {
+    console.log(state,action.type);
     switch (action.type) {
       case GET_USER:
         return {
           ...state,
-          getuser: action.payload,
+          user: action.payload,
         };
         default:
       return state;

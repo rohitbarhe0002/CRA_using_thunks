@@ -4,28 +4,29 @@ import { Table, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import {useEffect} from 'react';
 import { useParams} from 'react-router-dom';
+import { getodos } from './acttions';
+import { useSelector,useDispatch } from 'react-redux';
 
-export default function Todos () {
- const {id}=useParams();
-   console.log(id);
-    const [Todos,setTodos]=React.useState([])
-     
+export default function Todos (props) {
+    const {id}=useParams();
 
-    useEffect(() => {
-            
 
-        LoadData();
-
-    },[])
-
-    const LoadData=async()=>{
-        const res =await axios.get(`http://localhost:3008/users/${id}/todos`)
-           
-                   console.log(res.data)
-                   setTodos(res.data)
-}
+    const todos = useSelector((state) => state.todos.todos);
+    console.log(todos);
    
-  
+
+     const dispatch=useDispatch();
+
+     useEffect(() => {
+      LoadTodos();     
+     },[])
+
+  const LoadTodos= async()=> {
+    const result = await axios.get(`http://localhost:3008/users/${id}/todos`)
+    const  getTodosAction = getodos(result.data)
+    dispatch(getTodosAction);
+
+    }
 
 return(
     <>
@@ -39,7 +40,8 @@ return(
         
     </tr>
 </thead>
-      {Todos.map(todos => 
+
+      {todos.map(todos => 
            <tbody>
                <tr>
                   

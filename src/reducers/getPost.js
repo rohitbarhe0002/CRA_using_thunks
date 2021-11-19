@@ -5,7 +5,7 @@ const initialState = {
    }
    
    export default function posts (state = initialState, action) {
-     console.log(state,action.type);
+     
      switch (action.type) {
        case GET_Post:
          return {

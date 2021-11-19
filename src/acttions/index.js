@@ -3,7 +3,6 @@ import { GET_TODOS } from "./actiontype";
 import {GET_Post} from "./actiontype";
 import { GET_COMMENT } from "./actiontype";
 import { ADD_USER1 } from "./actiontype";
-import { ADD_USER1 } from "./actiontype";
 import { EDIT_USER } from "./actiontype";
 
 

@@ -10,7 +10,7 @@ const initialState = {
    }
    
    export default function adduser (state = initialState, action) {
-     console.log(state,action.type);
+     
      switch (action.type) {
        case ADD_USER1:
          return {

@@ -6,7 +6,7 @@ const initialState = {
    }
    
    export default function comments (state = initialState, action) {
-     console.log(state,action.type);
+     
      switch (action.type) {
        case GET_COMMENT:
          return {

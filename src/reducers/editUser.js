@@ -2,7 +2,7 @@ import { EDIT_USER } from "../acttions/actiontype";
 
 const initialState = {
     edituser:{
-        useid:"",
+        userid:"",
         name:"",
         email:"",
         phone:""
@@ -10,12 +10,12 @@ const initialState = {
    }
    
    export default function EditUsers (state = initialState, action) {
-     console.log(state,action.type);
+     
      switch (action.type) {
        case EDIT_USER:
          return {
            ...state,
-           edituder: action.payload,
+           edituser: action.payload,
          };
          default:
        return state;

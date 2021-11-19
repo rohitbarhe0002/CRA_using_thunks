@@ -14,7 +14,7 @@ export default function Posts (props) {
 
 
     const post = useSelector((state) => state.getPost.post);
-    console.log(post);
+
    
 
      const dispatch=useDispatch();

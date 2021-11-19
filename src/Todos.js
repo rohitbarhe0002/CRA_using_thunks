@@ -12,7 +12,7 @@ export default function Todos (props) {
 
 
     const todos = useSelector((state) => state.todos.todos);
-    console.log(todos);
+
    
 
      const dispatch=useDispatch();

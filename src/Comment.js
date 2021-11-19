@@ -11,25 +11,18 @@ import { useSelector,useDispatch } from 'react-redux';
 export default function Comments (props) {
 
     const {id}=useParams();
-
     const Comment = useSelector((state) => state.getComment.comment);
-    //console.log(comments);
-   
-
      const dispatch=useDispatch();
 
      useEffect(() => {
       LoadComment();     
      },[])
 
-  const LoadComment= async()=> {
+    const LoadComment= async()=> {
     const result = await axios.get(`http://localhost:3008/users/${id}/comments`)
     dispatch(getcomment(result.data))
     
-
     }
-
-   
 
     return ( 
     <>
@@ -39,22 +32,16 @@ export default function Comments (props) {
         <th> Id </th> 
         <th> comments </th>
 
-
-
         </tr> 
         </thead> {
             Comment.map(comment =>
                 <tbody >
-                <
-                tr >
 
+                <tr>
                 <td > { comment.id } </td> 
                 <td >  { comment.email } </td>
-
-
                 </tr> 
                 </tbody>
-
             )
         } </Table>
 

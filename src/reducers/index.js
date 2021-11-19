@@ -4,6 +4,7 @@ import todos from './getTodos'
 import getPost from './getPost'
 import getComment from './getComment';
 import adduser from './addUser';
+import editUser from './editUser';
 
 export default combineReducers({
     getUsers,
@@ -11,5 +12,7 @@ export default combineReducers({
     getPost,
     getComment,
     adduser,
+  editUser,
+
 
 });

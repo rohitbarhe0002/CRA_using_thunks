@@ -1,6 +1,5 @@
 import { GET_USER } from "../acttions/actiontype";
 
-  
   const initialState = {
    user:[],
   }

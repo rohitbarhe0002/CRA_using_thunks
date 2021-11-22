@@ -7,22 +7,33 @@ import { useParams} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getcomment } from './acttions';
 import { useSelector,useDispatch } from 'react-redux';
+import { requestComment } from './thunks/request';
 
 export default function Comments (props) {
-
+    const dispatch = useDispatch();
     const {id}=useParams();
-    const Comment = useSelector((state) => state.getComment.comment);
-     const dispatch=useDispatch();
-
-     useEffect(() => {
-      LoadComment();     
-     },[])
-
-    const LoadComment= async()=> {
-    const result = await axios.get(`http://localhost:3008/users/${id}/comments`)
-    dispatch(getcomment(result.data))
     
-    }
+    const comments = useSelector((state) => state.getComment.comment);
+    console.log(comments)
+
+
+    useEffect(() => {
+        dispatch(requestComment(id));
+      }, []);
+
+
+    // const Comment = useSelector((state) => state.getComment.comment);
+    //  const dispatch=useDispatch();
+
+    //  useEffect(() => {
+    //   LoadComment();     
+    //  },[])
+
+    // const LoadComment= async()=> {
+    // const result = await axios.get(`http://localhost:3008/users/${id}/comments`)
+    // dispatch(getcomment(result.data))
+    
+    // }
 
     return ( 
     <>
@@ -34,7 +45,7 @@ export default function Comments (props) {
 
         </tr> 
         </thead> {
-            Comment.map(comment =>
+            comments.map(comment =>
                 <tbody >
 
                 <tr>

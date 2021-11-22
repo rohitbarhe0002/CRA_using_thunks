@@ -7,28 +7,32 @@ import { useParams} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getpost } from './acttions';
 import { useSelector,useDispatch } from 'react-redux';
+import { requestPost } from './thunks/request';
 
 export default function Posts (props) {
-
+    const dispatch=useDispatch();
     const {id}=useParams();
 
 
+    // const post = useSelector((state) => state.getPost.post);
     const post = useSelector((state) => state.getPost.post);
 
-   
 
-     const dispatch=useDispatch();
+    useEffect(() => {
+        dispatch(requestPost(id));
+      }, []);
+    console.log(post)
 
-     useEffect(() => {
-      LoadPost();     
-     },[])
+//      useEffect(() => {
+//       LoadPost();     
+//      },[])
 
-  const LoadPost= async()=> {
-    const result = await axios.get(`http://localhost:3008/users/${id}/posts`)
-    const getPostAction  = getpost(result.data)
-    dispatch(getPostAction);
+//   const LoadPost= async()=> {
+//     const result = await axios.get(`http://localhost:3008/users/${id}/posts`)
+//     const getPostAction  = getpost(result.data)
+//     dispatch(getPostAction);
 
-    }
+//     }
 
 return(
     <>

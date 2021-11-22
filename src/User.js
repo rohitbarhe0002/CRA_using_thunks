@@ -7,23 +7,29 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {getuser} from './acttions/index.js';
+import { requestUsers } from './thunks/request';
 
 export default function User (props) {
-       
-const user = useSelector((state) => state.getUsers.user);
+
 const dispatch = useDispatch();
+// const user = useSelector((state) => state.getUsers.user);
+const user = useSelector((state) => state.getUsers.user);
+console.log(user)
+
       
-  useEffect(() => {
-      LoadUser();     
-    },[])
+useEffect(() => {
+    dispatch(requestUsers(user));
+  }, []);
+   
 
-    const LoadUser= async()=> {
-    const result = await axios.get('http://localhost:3008/users')
-    const  getUserAction = getuser(result.data)
-    dispatch(getUserAction);
+    // const LoadUser= async()=> {
+    // const result = await axios.get('http://localhost:3008/users')
+    // const  getUserAction = getuser(result.data)
+    // dispatch(getUserAction);
 
-    }
- return(
+    
+   return(
+
             <>
          <Container className="fluid">
                
@@ -42,6 +48,7 @@ const dispatch = useDispatch();
            {user.map(user => 
            <tbody>
                <tr>
+                   
                    <td>{user.id}</td>
                    <td>{user.name}</td>
                    <td>{user.email}</td>

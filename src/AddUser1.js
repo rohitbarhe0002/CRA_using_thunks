@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { adduser1 } from './acttions';
 import { useSelector,useDispatch } from 'react-redux';
-
+import { requestadduser } from './thunks/request';
 
 const AddUser1 = () =>{
 
@@ -17,13 +17,14 @@ const AddUser1 = () =>{
         const{useid,name,email,phone}=Adduser;
 
         const InputChange = (event) =>{
-            dispatch(adduser1({...Adduser,[event.target.name]:event.target.value}));
+        dispatch(adduser1({...Adduser,[event.target.name]:event.target.value}));
     };
  
     
           const onSubmit = async(event)=>{
             event.preventDefault();
-            await axios.post('http://localhost:3008/users',Adduser);
+            dispatch(requestadduser(Adduser))
+            // await axios.post('http://localhost:3008/users',Adduser);
             history.push('./User');
         };
 

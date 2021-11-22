@@ -6,24 +6,36 @@ import {useEffect} from 'react';
 import { useParams} from 'react-router-dom';
 import { getodos } from './acttions';
 import { useSelector,useDispatch } from 'react-redux';
+import { requestTodos } from './thunks/request';
 
-   export default function Todos (props) {
+export default function Todos (props) {
+    const dispatch = useDispatch();
     const {id}=useParams();
 
 
+
+    // const user = useSelector((state) => state.getUsers.user);
     const todos = useSelector((state) => state.todos.todos);
-     const dispatch=useDispatch();
+    console.log(todos)
+    
+          
+    useEffect(() => {
+        dispatch(requestTodos(id));
+      }, []);
 
-     useEffect(() => {
-      LoadTodos();     
-     },[])
+//     const todos = useSelector((state) => state.todos.todos);
+//      const dispatch=useDispatch();
 
-  const LoadTodos= async()=> {
-    const result = await axios.get(`http://localhost:3008/users/${id}/todos`)
-    const  getTodosAction = getodos(result.data)
-    dispatch(getTodosAction);
+//      useEffect(() => {
+//       LoadTodos();     
+//      },[])
 
-    }
+//   const LoadTodos= async()=> {
+//     const result = await axios.get(`http://localhost:3008/users/${id}/todos`)
+//     const  getTodosAction = getodos(result.data)
+//     dispatch(getTodosAction);
+
+//     }
 
 return(
     <>

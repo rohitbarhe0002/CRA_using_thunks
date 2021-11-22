@@ -11,8 +11,6 @@ import {getuser} from './acttions/index.js';
 export default function User (props) {
        
 const user = useSelector((state) => state.getUsers.user);
-
-
 const dispatch = useDispatch();
       
   useEffect(() => {

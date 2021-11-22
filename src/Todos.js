@@ -7,14 +7,11 @@ import { useParams} from 'react-router-dom';
 import { getodos } from './acttions';
 import { useSelector,useDispatch } from 'react-redux';
 
-export default function Todos (props) {
+   export default function Todos (props) {
     const {id}=useParams();
 
 
     const todos = useSelector((state) => state.todos.todos);
-
-   
-
      const dispatch=useDispatch();
 
      useEffect(() => {
